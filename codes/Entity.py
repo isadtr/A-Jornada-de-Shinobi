@@ -1,20 +1,15 @@
+from abc import ABC, abstractmethod
+
 import pygame
 
-class Entity:
-    def __init__(self, name: str, surf: pygame.Surface, rect: pygame.Rect):
-        """
-        Classe base (superclasse) para todos os tipos de entidades do jogo.
-        :param name: Nome da entidade (Ex: "Player", "Enemy", etc.)
-        :param surf: Superfície (imagem) da entidade
-        :param rect: Retângulo que define posição e tamanho da entidade
-        """
-        self.name = name
-        self.surf = surf
-        self.rect = rect
 
-    def move(self) -> None:
-        """
-        Método genérico para mover a entidade.
-        Classes filhas podem sobrescrevê-lo com comportamentos específicos.
-        """
+class Entity(ABC):
+    def __init__(self, name: str, position: tuple):
+        self.name = name
+        self.surf = pygame.image.load('../Asset/' + name + '.png')
+        self.rect = self.surf.get_rect(left = position[0], top = position[1])
+        self.speed = 0
+
+    @abstractmethod
+    def move(self):
         pass

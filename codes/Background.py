@@ -1,13 +1,13 @@
-import pygame
-from entity import Entity
+from codes.Entity import Entity
+from codes.const import WIN_WIDTH, ENTITY_SPEED
+
 
 class Background(Entity):
-    def __init__(self, name: str, surf: pygame.Surface, rect: pygame.Rect):
-        super().__init__(name, surf, rect)
+    def __init__(self, name: str, position: tuple):
+        super().__init__(name, position)
 
-    def move(self) -> None:
-        """
-        Se quiser fazer um efeito de 'parallax' ou algo do tipo, implemente aqui.
-        Por enquanto, deixamos estático (sem movimento).
-        """
+    def move(self):
+        self.rect.centerx -= ENTITY_SPEED[self.name]  #image speed
+        if self.rect.right <= 0:
+            self.rect.left = WIN_WIDTH
         pass
