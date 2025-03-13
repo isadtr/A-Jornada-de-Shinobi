@@ -8,11 +8,11 @@ from codes.const import COLOR_DARK, MENU_OPTION, COLOR_LIGHT, COLOR_SELECT
 class Menu:
     def __init__(self, window):
         self.window = window
-        self.surf = pygame.image.load('../asset/orig.png')
+        self.surf = pygame.image.load('../asset/orig.png').convert_alpha()
         self.rect = self.surf.get_rect(left = 0, top = 0)
 
         # Carregar a imagem PNG extra (por cima do fundo)
-        self.overlay_surf = pygame.image.load('../asset/samurai-menu.png')  # Caminho da nova imagem
+        self.overlay_surf = pygame.image.load('../asset/samurai-menu.png').convert_alpha()  # Caminho da nova imagem
         self.overlay_rect = self.overlay_surf.get_rect(center = (400, 240))  # Ajuste de posição
 
     def run(self):
