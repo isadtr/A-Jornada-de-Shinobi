@@ -21,9 +21,13 @@ ENTITY_SPEED = {
     'level01_3': 2,
     'level01_4': 2.66,
     'shinobi': 3,
+    'shinobiAttack': 1,
     'player2': 3,
+    'player2Attack': 1,
     'enemy1': 1,
+    'enemy1Attack': 3,
     'enemy2': 2,
+    'enemy2Attack': 3,
 }
 
 SPAWN_TIME = 4000
@@ -36,6 +40,7 @@ PLAYER_KEY_LEFT = {'shinobi': pygame.K_LEFT, 'player2': pygame.K_a}
 PLAYER_KEY_RIGHT = {'shinobi': pygame.K_RIGHT, 'player2': pygame.K_d}
 PLAYER_KEY_ATTACK = {'shinobi': pygame.K_RCTRL, 'player2': pygame.K_LCTRL}
 
+
 EVENT_ENEMY = pygame.USEREVENT + 1
 
 ENTITY_HEALTH = {
@@ -45,19 +50,20 @@ ENTITY_HEALTH = {
     'level01_3': 999,
     'level01_4': 999,
     'shinobi': 300,
+    'shinobiAttack': 1,
     'player2': 300,
+    'player2Attack': 1,
     'enemy1': 50,
+    'enemy1Attack': 1,
     'enemy2': 60,
+    'enemy2Attack': 1,
 }
 
 
-# ENTITY_HEALTH = {
-#     'shinobi': 300,
-#     'shinobiAttack': 1,
-#     'player2': 300,
-#     'player2Attack': 1,
-#     'enemy1': 50,
-#     'enemy1Attack': 1,
-#     'enemy2': 60,
-#     'enemy2Attack': 1,
-# }
+ENTITY_SHOT_DELAY = {
+    'shinobi': 20,
+    'player2': 15,
+    'enemy1': 60,
+    'enemy2': 85,
+
+}
