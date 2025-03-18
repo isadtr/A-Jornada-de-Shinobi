@@ -3,9 +3,12 @@ import pygame
 WIN_WIDTH = 570
 WIN_HEIGHT = 320
 
-COLOR_DARK = (20, 8, 31)
-COLOR_LIGHT = (255,255,255)
-COLOR_SELECT = (20, 8, 31)
+C_DARK = (20, 8, 31)
+C_LIGHT = (255, 255, 255)
+C_SELECT = (20, 8, 31)
+C_GREEN = (0, 128, 0)
+C_CYAN = (0, 128, 128)
+
 
 MENU_OPTION = (
     'NEW GAME 1P',
@@ -66,4 +69,36 @@ ENTITY_SHOT_DELAY = {
     'enemy1': 60,
     'enemy2': 85,
 
+}
+
+ENTITY_DAMAGE = {
+    'level01_0': 0,
+    'level01_1': 0,
+    'level01_2': 0,
+    'level01_3': 0,
+    'level01_4': 0,
+    'shinobi': 1,
+    'shinobiAttack': 25,
+    'player2': 1,
+    'player2Attack': 20,
+    'enemy1': 1,
+    'enemy1Attack': 20,
+    'enemy2': 1,
+    'enemy2Attack': 15,
+}
+
+ENTITY_SCORE = {
+    'level01_0': 0,
+    'level01_1': 0,
+    'level01_2': 0,
+    'level01_3': 0,
+    'level01_4': 0,
+    'shinobi': 0,
+    'shinobiAttack': 0,
+    'player2': 0,
+    'player2Attack': 0,
+    'enemy1': 100,
+    'enemy1Attack': 0,
+    'enemy2': 125,
+    'enemy2Attack': 0,
 }

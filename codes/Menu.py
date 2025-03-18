@@ -2,7 +2,7 @@ import pygame.image
 from pygame import Surface, Rect
 from pygame.font import Font
 
-from codes.const import COLOR_DARK, MENU_OPTION, COLOR_LIGHT, COLOR_SELECT
+from codes.const import C_DARK, MENU_OPTION, C_LIGHT, C_SELECT
 
 
 class Menu:
@@ -23,17 +23,17 @@ class Menu:
             # draw images
             self.window.blit(source = self.surf, dest = self.rect)
 
-            self.menu_text(30, "A JORNADA", COLOR_DARK, (150, 70))
-            self.menu_text(30, "DE SHINOBI", COLOR_DARK, (150, 110))
+            self.menu_text(30, "A JORNADA", C_DARK, (150, 70))
+            self.menu_text(30, "DE SHINOBI", C_DARK, (150, 110))
 
             # draw overlay
             self.window.blit(self.overlay_surf, self.overlay_rect)
 
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
-                    self.menu_text(16, MENU_OPTION[i], COLOR_SELECT, (150, 160 + 30 * i))
+                    self.menu_text(16, MENU_OPTION[i], C_SELECT, (150, 160 + 30 * i))
                 else:
-                    self.menu_text(16, MENU_OPTION[i], COLOR_LIGHT, (150, 160 + 30 * i))
+                    self.menu_text(16, MENU_OPTION[i], C_LIGHT, (150, 160 + 30 * i))
 
             # check for all events
             for event in pygame.event.get():

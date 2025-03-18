@@ -10,7 +10,7 @@ from codes.Entity import Entity
 from codes.EntityFactory import EntityFactory
 from codes.EntityMediator import EntityMediator
 from codes.Player import Player
-from codes.const import WIN_HEIGHT, COLOR_LIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
+from codes.const import WIN_HEIGHT, C_LIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN
 
 
 class Level:
@@ -42,6 +42,14 @@ class Level:
                     attack = ent.attack()
                     if attack is not None:
                         self.entity_list.append(attack)
+                if ent.name == 'shinobi':   # HUD
+                    self.level_text(text_size = 14, text = f'Player1 - Health: {ent.health} | Score: {ent.score}',
+                                    text_color = C_GREEN,
+                                    text_pos = (10, 20))
+                if ent.name == 'player2':
+                    self.level_text(text_size = 14, text = f'Player2 - Health: {ent.health} | Score: {ent.score}',
+                                    text_color = C_CYAN,
+                                    text_pos = (200, 20))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -53,12 +61,13 @@ class Level:
 
 
 
+
             # printed text
             self.level_text(text_size = 14, text = f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s',
-                            text_color = COLOR_LIGHT, text_pos = (10, 5))
-            self.level_text(text_size = 14, text = f'fps: {clock.get_fps() :.0f}', text_color = COLOR_LIGHT,
+                            text_color = C_LIGHT, text_pos = (10, 5))
+            self.level_text(text_size = 14, text = f'fps: {clock.get_fps() :.0f}', text_color = C_LIGHT,
                             text_pos = (250, 5))
-            self.level_text(text_size = 14, text = f'entidades: {len(self.entity_list)}', text_color = COLOR_LIGHT,
+            self.level_text(text_size = 14, text = f'entidades: {len(self.entity_list)}', text_color = C_LIGHT,
                             text_pos = (400, 5))
             # self.level_text(text_size = 14, text = f'fps: {clock.get_fps() : 0f}', text_color = COLOR_LIGHT,
             #                 text_pos = (10, WIN_HEIGHT - 35))
