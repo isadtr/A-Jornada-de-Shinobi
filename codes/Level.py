@@ -34,9 +34,26 @@ class Level:
         clock = pygame.time.Clock()
         while True:
             clock.tick(60)
+
+            # Verifica se o jogador está pressionando as teclas de movimento
+            keys = pygame.key.get_pressed()
+
+            # Define a direção do movimento: 1 para direita, -1 para esquerda, 0 para parado
+            direcao = 0
+            if keys[pygame.K_RIGHT]:
+                direcao = 1
+            elif keys[pygame.K_LEFT]:
+                direcao = -1
+            # mover = keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]
+
             for ent in self.entity_list:
                 self.window.blit(source = ent.surf, dest = ent.rect)
-                ent.move()
+                # Se for um background (nome que inicia com "level01_"), move-o somente se 'mover' for True
+                if ent.name.startswith("level01_"):
+                    ent.move(direcao)
+                else:
+                    ent.move()
+
 
                 if isinstance(ent, (Player, Enemy)):
                     attack = ent.attack()
@@ -74,7 +91,7 @@ class Level:
             # self.level_text(text_size = 14, text = f'entidades: {len(self.entity_list)}', text_color = COLOR_LIGHT,
             #                 text_pos = (10, WIN_HEIGHT - 20))
             pygame.display.flip()
-            # Colisões
+            # Colisões e saúde
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
         pass

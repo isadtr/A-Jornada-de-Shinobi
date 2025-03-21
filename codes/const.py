@@ -41,7 +41,7 @@ PLAYER_KEY_UP = {'shinobi': pygame.K_UP,'player2': pygame.K_w}
 PLAYER_KEY_DOWN = {'shinobi': pygame.K_DOWN, 'player2': pygame.K_s}
 PLAYER_KEY_LEFT = {'shinobi': pygame.K_LEFT, 'player2': pygame.K_a}
 PLAYER_KEY_RIGHT = {'shinobi': pygame.K_RIGHT, 'player2': pygame.K_d}
-PLAYER_KEY_ATTACK = {'shinobi': pygame.K_RCTRL, 'player2': pygame.K_LCTRL}
+PLAYER_KEY_ATTACK = {'shinobi': pygame.K_SPACE, 'player2': pygame.K_LCTRL}
 
 
 EVENT_ENEMY = pygame.USEREVENT + 1
