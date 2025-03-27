@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 from codes.EnemyShot import EnemyShot
@@ -16,5 +18,5 @@ class Enemy(Entity):
     def attack(self):
         self.shot_delay -= 1
         if self.shot_delay == 0:
-            self.shot_delay = ENTITY_SHOT_DELAY[self.name]
+            self.shot_delay = random.randint(ENTITY_SHOT_DELAY[self.name],ENTITY_SHOT_DELAY[self.name] * 2)
             return EnemyShot(name = f'{self.name}Attack', position = (self.rect.centerx, self.rect.centery))

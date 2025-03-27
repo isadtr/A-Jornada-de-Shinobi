@@ -10,7 +10,7 @@ from codes.Entity import Entity
 from codes.EntityFactory import EntityFactory
 from codes.EntityMediator import EntityMediator
 from codes.Player import Player
-from codes.const import WIN_HEIGHT, C_LIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN
+from codes.const import WIN_HEIGHT, C_LIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN, WIN_WIDTH
 
 
 class Level:
@@ -22,15 +22,65 @@ class Level:
         self.entity_list.extend(EntityFactory.get_entity('level01_'))
         self.entity_list.append(EntityFactory.get_entity('Player1'))
         self.timeout = 20000  # 20 seconds
+        self.enemies_defeated = 0 # contador de inimigos derrotados
 
         if game_mode in MENU_OPTION[1]:
             self.entity_list.append(EntityFactory.get_entity('Player2'))
 
         pygame.time.set_timer(EVENT_ENEMY,SPAWN_TIME)
 
+    def display_objective_screen(self):
+            # Carrega a imagem que será animada
+            overlay_image = pygame.image.load('../asset/samurai-menu.png').convert_alpha()
+            # Inicia a posição da imagem fora da tela (à esquerda)
+            overlay_rect = overlay_image.get_rect(center = (-overlay_image.get_width() // 2, WIN_HEIGHT // 1.5))
+
+            # Define a mensagem do objetivo
+            objective_text = "Objetivo: Elimine 15 inimigos"
+            text_size = 20
+            text_color = (255, 255, 255)
+            text_pos = (WIN_WIDTH // 6, WIN_HEIGHT // 2)
+
+            # Velocidade de animação (pixels por frame)
+            slide_speed = 10
+
+            # ANIMAÇÃO DE ENTRADA: deslizar da esquerda até o centro
+            while overlay_rect.centerx < WIN_WIDTH // 1.2:
+                self.window.fill((20, 0, 20))
+                overlay_rect.centerx += slide_speed
+                self.window.blit(overlay_image, overlay_rect)
+                self.level_text(text_size, objective_text, text_color, text_pos)
+                pygame.display.flip()
+                pygame.time.delay(30)
+
+            # Mantém a tela com o objetivo por 5 segundos
+            t0 = pygame.time.get_ticks()
+            while pygame.time.get_ticks() - t0 < 3000:
+                self.window.fill((20, 0, 20))
+                self.window.blit(overlay_image, overlay_rect)
+                self.level_text(text_size, objective_text, text_color, text_pos)
+                pygame.display.flip()
+                pygame.time.delay(30)
+
+            # ANIMAÇÃO DE SAÍDA: deslizar para a direita até sair da tela
+            while overlay_rect.left < WIN_WIDTH:
+                self.window.fill((20, 0, 20))
+                overlay_rect.centerx += slide_speed
+                self.window.blit(overlay_image, overlay_rect)
+                self.level_text(text_size, objective_text, text_color, text_pos)
+                pygame.display.flip()
+                pygame.time.delay(30)
+
+    def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
+            text_font = pygame.font.SysFont(name = "Lucida Sans Typewriter", size = text_size)
+            text_surf = text_font.render(text, True, text_color).convert_alpha()
+            text_rect = text_surf.get_rect(center = text_pos)
+            self.window.blit(text_surf, text_rect)
+
     def run(self):
-        # pygame.mixer_music.load(f'../Asset/{self.name}.mp3')  # music level
-        # pygame.mixer_music.play(-1)
+
+        self.display_objective_screen()
+
         clock = pygame.time.Clock()
         while True:
             clock.tick(60)
@@ -66,7 +116,7 @@ class Level:
                 if ent.name == 'player2':
                     self.level_text(text_size = 14, text = f'Player2 - Health: {ent.health} | Score: {ent.score}',
                                     text_color = C_CYAN,
-                                    text_pos = (200, 20))
+                                    text_pos = (280, 20))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -75,7 +125,6 @@ class Level:
                 if event.type == EVENT_ENEMY:
                     choice = random.choice(('Enemy1', 'Enemy2'))
                     self.entity_list.append(EntityFactory.get_entity(choice))
-
 
 
 
@@ -93,7 +142,30 @@ class Level:
             pygame.display.flip()
             # Colisões e saúde
             EntityMediator.verify_collision(entity_list=self.entity_list)
-            EntityMediator.verify_health(entity_list=self.entity_list)
+            defeated = EntityMediator.verify_health(entity_list=self.entity_list)
+            self.enemies_defeated += defeated
+
+            # Verifica se o player está morto (considerando que Player é uma instância de Player)
+            players_alive = [ent for ent in self.entity_list if isinstance(ent, Player)]
+            if not players_alive:
+                # Exibe a mensagem centralizada de "Você morreu" ou "Game Over"
+                self.level_text(
+                    text_size = 40,
+                    text = "Game Over",
+                    text_color = (255, 0, 0),  # vermelho, por exemplo
+                    text_pos = (WIN_WIDTH // 4, WIN_HEIGHT // 2)
+                )
+                pygame.display.flip()
+                pygame.time.delay(3000)  # pausa por 3 segundos para o jogador ver a mensagem
+                return  # encerra o nível ou redireciona para o menu
+
+            if self.enemies_defeated >= 15:
+                self.level_text(text_size = 40, text="Objetivo Concluído!",text_color=(20,0,50),text_pos=(WIN_WIDTH // 8, WIN_HEIGHT // 2))
+                pygame.display.flip()
+                pygame.time.delay(3000)
+                return
+
+
         pass
 
 
