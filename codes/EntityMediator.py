@@ -61,6 +61,7 @@ class EntityMediator:
                 entity2 = entity_list[j]
                 EntityMediator.__verify_collision_entity(entity1, entity2)
 
+
     @staticmethod
     def verify_health(entity_list: list[Entity]) -> int:
         removed_enemies = 0

@@ -110,11 +110,15 @@ class Level:
                     if attack is not None:
                         self.entity_list.append(attack)
                 if ent.name == 'shinobi':   # HUD
-                    self.level_text(text_size = 14, text = f'Player1 - Health: {ent.health} | Score: {ent.score}',
+                    self.level_text(text_size = 14,
+                                    # text = f'Player1 - Health: {ent.health} | Score: {ent.score} | Kills: {self.enemies_defeated}',
+                                    text = f'Player1 - Health: {ent.health} | Kills: {self.enemies_defeated}',
                                     text_color = C_GREEN,
                                     text_pos = (10, 20))
                 if ent.name == 'player2':
-                    self.level_text(text_size = 14, text = f'Player2 - Health: {ent.health} | Score: {ent.score}',
+                    self.level_text(text_size = 14,
+                                    # text = f'Player2 - Health: {ent.health} | Score: {ent.score} | Kills: {self.enemies_defeated}',
+                                    text = f'Player2 - Health: {ent.health} | Kills: {self.enemies_defeated}',
                                     text_color = C_CYAN,
                                     text_pos = (280, 20))
 
@@ -144,6 +148,7 @@ class Level:
             EntityMediator.verify_collision(entity_list=self.entity_list)
             defeated = EntityMediator.verify_health(entity_list=self.entity_list)
             self.enemies_defeated += defeated
+
 
             # Verifica se o player está morto (considerando que Player é uma instância de Player)
             players_alive = [ent for ent in self.entity_list if isinstance(ent, Player)]

@@ -13,7 +13,6 @@ C_CYAN = (0, 128, 128)
 MENU_OPTION = (
     'NEW GAME 1P',
     'NEW GAME 2P - COOPERATIVE',
-    'SCORE',
     'EXIT'
 )
 

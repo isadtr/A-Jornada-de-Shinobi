@@ -17,10 +17,10 @@ class Game:
             menu_return = menu.run()
 
             # sets the menu options
-            if menu_return in [MENU_OPTION[0], MENU_OPTION[1], MENU_OPTION[2]]:
+            if menu_return in [MENU_OPTION[0], MENU_OPTION[1]]:
                 level = Level(self.window, 'Level1', menu_return)
                 level_return = level.run()
-            elif menu_return == MENU_OPTION[3]:  # exit
+            elif menu_return == MENU_OPTION[2]:  # exit
                 pygame.quit()
                 quit()
             else:
